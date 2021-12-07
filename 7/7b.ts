@@ -7,7 +7,7 @@ intput.forEach(x => {if (x>max) max = x})
 
 //Some thinking and my inuition is telling me it's calculate distance from x for each crab, sum them and pick the smallest if people were able to solve it that quickly
 
-function stepCounter (distance:number):number{ //high school math huh
+function stepCounter (distance:number):number{ //gauss sum (0,1,2,...n)
     return (distance * (distance+1))/2
 }
 
