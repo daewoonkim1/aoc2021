@@ -16,7 +16,7 @@ function iterateDay (fishMap:Map<number,number>){
     fishMap.set(8, newFish);
 }
 
-//Use a key map pair instead
+//Use a map instead
 let fishes:Map<number,number> = new Map<number,number>();
 fishes.set(0,0);
 fishes.set(1,0);
