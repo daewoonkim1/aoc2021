@@ -15,7 +15,7 @@ let min = -1;
 for (let x = 0; x <= max; x++){
     let sum = 0;
     intput.forEach(y => {
-        sum += stepCounter(Math.abs(y-x)); //Don't understand how filter works
+        sum += stepCounter(Math.abs(y-x)); //Don't understand how reduce works
     })
 
     if ( min === -1){min=sum} else { if (sum < min) min = sum;}
