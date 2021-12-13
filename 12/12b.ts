@@ -1,6 +1,6 @@
-import * as fs from 'fs' 
+import * as fs from 'fs'
 
-const input = Buffer.from(fs.readFileSync('')).toString().split("\n")
+const input = Buffer.from(fs.readFileSync('/Users/daewoonkim/git/neo/aoc2021/12/input.txt')).toString().split("\n")
 
 const map = new Map<string, string[]>();
 
@@ -15,10 +15,11 @@ input.forEach(connection => {
     (new Array()
     .concat(connection.split("-")[0])
     .concat(map.get(connection.split("-")[1])))
-    .filter(x=>x!==undefined) || map.get(connection.split("-")[1])?.indexOf(connection.split("-")[0])!==-1)
+    .filter(x=>x!==undefined || map.get(connection.split("-")[1])?.indexOf(connection.split("-")[0])!==-1))
 });
 
 const observer:string[][] = []
+
 function pathss (search:string, map:Map<string,string[]>, currentpath:string[]){
     if (search==="start" && currentpath.indexOf("start")===-1){
         observer.push(currentpath.concat("start"))
@@ -42,7 +43,7 @@ function pathss (search:string, map:Map<string,string[]>, currentpath:string[]){
             })
         }
     }
-    else if (search.toUpperCase()!==search && currentpath.filter(x=>x===search).length<2){
+    else if (search.toUpperCase()!==search && currentpath.filter(x=>x===search).length<2){ //Small caves are visited at most twice
         observer.push(currentpath.concat(search))
         if (map.get(search)!==undefined){
             map.get(search)?.forEach(x => {
@@ -58,5 +59,30 @@ function pathss (search:string, map:Map<string,string[]>, currentpath:string[]){
 }
 
 pathss("start", map, []);
-console.log(observer.filter(x => x[0]==="start" && x[x.length-1]==="end"));
+const res = observer.filter(x => x[0]==="start" && x[x.length-1]==="end")
+//find paths where only one small cave is visited twice
+let sum = 0;
+res.forEach(path => { //Really rough lines of code, but just want to get this done
+    const tracker = new Map<string,number>();
+    path.forEach(x => {
+        const pathvals = tracker.get(x)
+        if (pathvals === undefined){
+            tracker.set(x, 1)
+        }
+        else{
+            tracker.set(x, pathvals+1)
+        }
+    })
+    tracker.delete("start"), tracker.delete("end")
+    for (const key of tracker.keys()){
+        if (key.toUpperCase()===key){
+            tracker.delete(key)
+        }
+    }
+    if (Array.from(tracker.values()).indexOf(2)===Array.from(tracker.values()).lastIndexOf(2)){
+        sum++;
+    }
+})
+
+console.log(sum); //above worked for small, medium, large, but not input
 console.log("")
