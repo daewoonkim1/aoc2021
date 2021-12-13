@@ -1,4 +1,4 @@
-import * as fs from 'fs'
+import * as fs from 'fs' 
 
 const input = Buffer.from(fs.readFileSync('')).toString().split("\n")
 
