@@ -3,8 +3,8 @@ NN ->
 Exclude rules without H
 
 NN -> 1n, 1n => 2n ~ 2
-NCN -> 1n, 1c, 1n => 2n, 1c ~ 2
-NBCCN -> 1n, 1b, 2c, 1n => 2n, 1b, 2c ~ 3
+NCN -> 1n, 1c, 1n => 2n, 1c ~ 3
+NBCCN -> 1n, 1b, 2c, 1n => 2n, 1b, 2c ~ 4
 NBBBCNCCN -> 1n, 3b, 1c, 1n, 2c, 1n => 3n, 3b, 3c ~ 6
 NBBNBNBBCCNBCNCCN -> 1n, 2b, 1n, 1b, 1n, 2b, 2c, 1n, 1b, 1c, 1n, 2c, 1n => 6n, 6b, 5c ~ 13
 
