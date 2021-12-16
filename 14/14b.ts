@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 
-const input = Buffer.from(fs.readFileSync('input.txt')).toString().split("\n")
+const input = Buffer.from(fs.readFileSync('/Users/daewoonkim/git/neo/aoc2021/14/inputs.txt')).toString().split("\n")
 
 let starter = input[0]
 const rules = new Map<string,string>()
@@ -11,11 +11,15 @@ input.forEach(x => {
     }
 })
 
+function compress (){
+
+}
+
 function step (compound:string, keys:Map<string,string>){
     let builder = compound.charAt(0);
     for (let x = 1; x <= compound.length; x++){
         if (keys.get(compound.charAt(x-1)+compound.charAt(x))!==undefined){
-            builder+=rules.get(compound.charAt(x-1)+compound.charAt(x)) + compound.charAt(x)
+            builder+=keys.get(compound.charAt(x-1)+compound.charAt(x)) + compound.charAt(x)
         }
         else{
             builder+=compound.charAt(x)
@@ -24,24 +28,35 @@ function step (compound:string, keys:Map<string,string>){
     return builder;
 }
 
-//WIP yeah there's something to look into
-for (let x = 0; x< 40; x++){
-    starter = step (starter, rules);
+const res = new Map<string,number>()
+function updateRes (subcompound:string){
+    for (let x = 0; x < subcompound.length; x++){
+        const resget = res.get(subcompound.charAt(x))
+        if (resget===undefined){
+            res.set(subcompound.charAt(x), 1)
+        }
+        else{
+            res.set(subcompound.charAt(x), resget + 1)
+        }
+    }
 }
 
-const res = new Map<string,number>()
-for (let x = 0; x < starter.length; x++){
-    const resget = res.get(starter.charAt(x))
-    if (resget===undefined){
-        res.set(starter.charAt(x), 1)
+for (let i = 1; i <= starter.length; i++){
+    let substarter = ""
+    for (let x = 0; x< 40; x++){ //Wishful thinking
+        if (x===0){
+            substarter = step (starter.charAt(i-1)+starter.charAt(i), rules);
+        }
+        else{
+            substarter = step(substarter, rules)
+        }
     }
-    else{
-        res.set(starter.charAt(x), resget + 1)
-    }
+    updateRes(substarter); //N off by 1 for 10 steps, double counted somewhere
 }
 
 let compare = Array.from(res.values()).sort((a,b) => a-b)
 console.log(Math.abs(compare[compare.length-1]-compare[0]))
+
 
 
 console.log("")
