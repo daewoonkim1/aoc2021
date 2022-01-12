@@ -10,4 +10,4 @@ NBBNBNBBCCNBCNCCN -> 1n, 2b, 1n, 1b, 1n, 2b, 2c, 1n, 1b, 1c, 1n, 2c, 1n => 6n, 6
 
 Compressed seems to grow slower
 
-
+Another idea is to check if the cycles start to repeat at a certain point for two letters
